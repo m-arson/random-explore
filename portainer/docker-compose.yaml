@@ -1,0 +1,20 @@
+services:
+  portainer:
+    build: .
+    image: custom-portainer-ce:lts
+    container_name: portainer
+    restart: always
+    ports:
+      - "9443:9443"
+      - "8000:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    command:
+      - --tlscert
+      - /certs/portainer-bundle.crt
+      - --tlskey
+      - /certs/portainer.key
+
+volumes:
+  portainer_data:
